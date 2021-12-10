@@ -2,9 +2,9 @@ Buttons[] buttonList;
 PVector buttonSize = new PVector(50,60);
 int colour = 255;
 Buttons note;
-Buttons[] noteList; 
-int noteSize = 100;
-int noteOrder = 0;
+
+ArrayList<Buttons> noteList;
+
 boolean play = false;
 boolean move = false;
 boolean addNote = true;
@@ -33,8 +33,8 @@ void startUi() {
     for (int i = 0;i < 8;i++) {
         buttonList[i].update();
     }
-    for (int i = 0;i < noteOrder;i++) {
-        noteList[i].update();
+    for (int i = 0;i < noteList.size();i++) {
+        noteList.get(i).update();
     }
 }
 
@@ -81,13 +81,12 @@ void mousePressed() {
                 }
             }            
         } 
-    } else if(noteOrder>0){
+    } else{
         addNote = false;
-        for (int i = 0;i < noteOrder;i++) {
-            if (mouseX > noteList[i].bLoc.x && mouseX < noteList[i].bLoc.x + 50 
-                && mouseY > noteList[i].bLoc.y && mouseY < noteList[i].bLoc.y + 60) {
-                note = new Buttons();
-                note = noteList[i];
+        for (int i = 0;i < noteList.size();i++) {
+            if (mouseX > noteList.get(i).bLoc.x && mouseX < noteList.get(i).bLoc.x + 50 
+                && mouseY > noteList.get(i).bLoc.y && mouseY < noteList.get(i).bLoc.y + 60) {
+                note = noteList.get(i);
                 play = true;
             }  
         }
@@ -108,11 +107,14 @@ void mouseReleased() {
     } else{
         triOsc.play(midiToFreq(note.scale,note.pitch), 0.8);
     }
-    if (move&addNote) {
-        noteList[noteOrder]=new Buttons();
-        cloneMember(noteList[noteOrder],note);
-        move = false;
-        noteOrder +=1;
+    if (move) {
+        if (mouseX > 510) {
+            noteList.remove(note);
+            play = false;
+        }else if (addNote) {
+            noteList.add(note);
+            move = false;
+        }
     }
 }
 
@@ -124,7 +126,7 @@ void mouseDragged() {
 void drag() {
     if (play) {
         note.bLoc.x = mouseX;
-        note.bLoc.y = mouseY;
-        note.update();
     }
+    note.bLoc.y = mouseY;
+    note.update();
 }
