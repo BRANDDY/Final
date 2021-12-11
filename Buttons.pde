@@ -15,6 +15,9 @@ void startUi() {
     for (int i = 0;i < noteList.size();i++) {
         noteList.get(i).update();
     }
+    line (522,33,552,57);
+    line (552,57,522,83);
+    line (522,33,522,83);
 }
 
 void setButton() {

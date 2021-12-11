@@ -13,11 +13,11 @@ void mousePressed() {
                     note = new Buttons();
                     cloneMember(note, buttonList[i]);
                     play = true;
-                    dontRemove=false;
+                    dontRemove = false;
                 } else{
                     addNote = false;
                     play = false;
-                    dontRemove=true;
+                    dontRemove = true;
                     playMusic();
                 }
             }            
@@ -49,7 +49,7 @@ void mouseReleased() {
         triOsc.play(midiToFreq(note.scale,note.pitch), 0.8);
     }
     if (move) {
-        if (mouseX > 460&&!dontRemove) {
+        if (mouseX > 460 && dontRemove) {
             noteList.remove(note);
             play = false;
         } else if (addNote) {

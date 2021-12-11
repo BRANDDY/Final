@@ -17,18 +17,30 @@ import java.io.IOException;
 
 public class Final extends PApplet {
 
+/*Creat Color Score
+Different color has different pitch.
+Click pitch buttons can play sound.
+Drag a button to paper on left side to ADD a note.
+Drag the note to right side, it will be DELETED.
+When you finish composing the score, 
+click the White Button to PLAY your music.
+You can compose them any way you want at any time.
+***The music will be played line by line.***
+*/
+
 
 TriOsc triOsc;
 Buttons[] buttonList;
 Buttons note;
 ArrayList<Buttons> noteList;
+boolean start = false;
+
 PVector buttonSize = new PVector(50,60);
 
 
  public void setup() {
     triOsc = new TriOsc(this);
     buttonList = new Buttons[8];
-    triOsc.play(60, 0.8f);
     /* size commented out by preprocessor */;
     setButton();
     noteList = new ArrayList<Buttons>();
@@ -55,6 +67,9 @@ int red, green,blue;
     for (int i = 0;i < noteList.size();i++) {
         noteList.get(i).update();
     }
+    line (522,33,552,57);
+    line (552,57,522,83);
+    line (522,33,522,83);
 }
 
  public void setButton() {
@@ -129,11 +144,11 @@ boolean dontRemove = false;
                     note = new Buttons();
                     cloneMember(note, buttonList[i]);
                     play = true;
-                    dontRemove=false;
+                    dontRemove = false;
                 } else{
                     addNote = false;
                     play = false;
-                    dontRemove=true;
+                    dontRemove = true;
                     playMusic();
                 }
             }            
@@ -165,7 +180,7 @@ boolean dontRemove = false;
         triOsc.play(midiToFreq(note.scale,note.pitch), 0.8f);
     }
     if (move) {
-        if (mouseX > 460&&!dontRemove) {
+        if (mouseX > 460 && dontRemove) {
             noteList.remove(note);
             play = false;
         } else if (addNote) {
@@ -269,7 +284,7 @@ int trigger = 0;
 }
 
 
-  public void settings() { size(640, 360); }
+  public void settings() { size(640, 360, P2D); }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Final" };
