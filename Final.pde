@@ -1,8 +1,9 @@
 /*Creat Color Score
 Different color has different pitch.
-Click pitch buttons can play sound.
-Drag a button to paper on left side to ADD a note.
-Drag the note to right side, it will be DELETED.
+->PITCH:Click pitch buttons(colour).
+->ADD a note:Drag a button to paper on left side.
+->DELETED: Drag the note to right side.
+->OCTAVE:Press the note, use mouse wheel increase or decrease octave(8 pitches)
 When you finish composing the score, 
 click the White Button to PLAY your music.
 You can compose them any way you want at any time.

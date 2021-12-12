@@ -15,9 +15,9 @@ void startUi() {
     for (int i = 0;i < noteList.size();i++) {
         noteList.get(i).update();
     }
-    line (522,33,552,57);
-    line (552,57,522,83);
-    line (522,33,522,83);
+    line(522,33,552,57);
+    line(552,57,522,83);
+    line(522,33,522,83);
 }
 
 void setButton() {
@@ -28,8 +28,7 @@ void setButton() {
             if ((t + i * 4)>= 4) {
                 scale = scale - 1;
             }
-            setColour(t + i * 4);
-            buttonList[t + i * 4] = new Buttons(scale,1,loc,colours);
+            buttonList[t + i * 4] = new Buttons(t + i * 4,scale,1,loc);
             loc.y = loc.y + 60 + 20;
         }
         loc.x += 70;     
@@ -37,32 +36,19 @@ void setButton() {
     } 
 }
 
-void setColour(int i) {
-    switch(i) {
-        case 0 : red = 255;green = 255;blue = 255; break;
-        case 1 : red = 255;green = 50;blue = 50; break;
-        case 2 : red = 255;green = 100;blue = 50; break;
-        case 3 : red = 255;green = 255;blue = 50; break;
-        case 4 : red = 50;green = 255;blue = 50; break;
-        case 5 : red = 0;green = 255;blue = 200; break;
-        case 6 : red = 50;green = 150;blue = 255; break;
-        case 7 : red = 150;green = 50;blue = 255; break;
-    }
-    colours = new PVector(red,green,blue);
-}
 
 
 class Buttons{
     PVector bLoc;
     int scale, pitch;
-    PVector colour;
+    PVector colour,colourOrg;
     
-    Buttons(int s, int p,PVector l,PVector c) {
+    Buttons(int i,int s, int p,PVector l) {
         bLoc = new PVector(l.x,l.y);
         scale = s;
         pitch = p;
-        colour = new PVector(c.x,c.y,c.z);
-        
+        setColour(i);
+        colourOrg = new PVector(red,green,blue);
     }
     Buttons() {
         bLoc = new PVector();
@@ -72,8 +58,21 @@ class Buttons{
         fill(colour.x,colour.y,colour.z);
         rect(bLoc.x, bLoc.y, buttonSize.x, buttonSize.y, 28);
     }
-}
 
+    void setColour(int t) {
+        switch(t) {
+            case 0 : red = 255;green = 255;blue = 255; break;
+            case 1 : red = 255 ;green = 50;blue = 50; break;
+            case 2 : red = 255 ;green = 100;blue = 50; break;
+            case 3 : red = 255 ;green = 255 ;blue = 50; break;
+            case 4 : red = 50;green = 255 ;blue = 50; break;
+            case 5 : red = 0;green = 255;blue = 200; break;
+            case 6 : red = 50;green = 150;blue = 255; break;
+            case 7 : red = 150;green = 50;blue = 255; break;
+        }
+        colour = new PVector(red,green,blue);
+    }
+}
 float midiToFreq(int n, int p) {
     return(pow(2,((n - 69) / 12.0))) * 440  * p;
 }
